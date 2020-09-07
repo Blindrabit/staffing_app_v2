@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #local apps 
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'calendar_app.apps.CalendarAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -146,7 +147,7 @@ ACCOUNT_LOGOUT_REDIRECT = 'home'
 
 SITE_ID = 1
 
-AUTHENICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
@@ -155,6 +156,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_FORMS = {'signup': 'users.forms.MyCustomSignupForm'}
 
+ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
