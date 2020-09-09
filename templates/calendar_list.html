@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% block title %}Calendar List{% endblock title %}
+
+{% block content %}
+<h1>calendar List</h1>
+
+<table class="table table-bordered text-center">
+    <thead class="thead-dark">
+        <tr class="row">
+            <th class="col-6">Avilibility</th>
+            <th class="col-3">Start Time</th>
+            <th class="col-3">End Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in event_list %}
+            {% if "Booked" in event.avilibility %}
+                <tr class="table-success row">
+                    <th class="col-6"><a href="{{ event.get_absolute_url }}">{{event.avilibility}}</a></th>
+                    <th class="col-3">{{event.start_time}}</th>
+                    <th class="col-3">{{event.end_time}}</th>
+                </tr>
+            {% else %}
+                <tr class="table-bordered row">
+                    <th class="col-6"><a href="{{ event.get_absolute_url }}">{{ event.avilibility }}</a></th>
+                    <th class="col-3">{{event.start_time}}</th>
+                    <th class="col-3">{{event.end_time}}</th>
+                </tr>
+            {% endif %}
+    </tbody>
+        {% endfor %}
+{% endblock content %}

@@ -1,11 +1,13 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 from django.contrib.auth.decorators import login_required
 
+from .views import CalendarEventsView, CalendarEventDetail, CalendarEventAdd
 
-app_name = 'calendar_app'
+
 urlpatterns = [
-    url(r'^calendar/$', login_required(views.CalendarView.as_view()), name='calendar'),
-    url(r'^event/new/$', login_required(views.event), name='event_new'),
-    url(r'^event/edit/(?P<event_id>\d+)/$', views.event, name='event_edit'),
+    path('', CalendarEventsView.as_view(), name='calendar_list'),
+    path('<uuid:pk>/', CalendarEventDetail.as_view(), name='calendar_event_detail'),
+    path('create/', CalendarEventAdd.as_view(), name='Event_add' )
 ]
