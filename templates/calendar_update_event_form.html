@@ -1,12 +1,12 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Add Event{% endblock title %}
+{% block title %}Update Event{% endblock title %}
 
 {% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit" name="action" class="btn btn-outline-primary">Add Avilibility</button>
+    <button type="submit" name="action" class="btn btn-outline-primary">Update Avilibility</button>
 </form>
 {% endblock content %}

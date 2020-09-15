@@ -15,7 +15,7 @@
       <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto font-weight-normal">Staffing App</a>
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="{% url 'calendar_list' %}">Calendar</a>
-        <a class="p-2 text-dark" href="{% url 'home' %}">blank</a>
+        <a class="p-2 text-dark" href="{% url 'event_add' %}">Add Avilibility</a>
         {% if user.is_authenticated %}
           <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
           <a class="p-2 text-dark" href="{% url 'account_change_password' %}">Change Password</a>
