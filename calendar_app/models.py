@@ -24,3 +24,7 @@ class Event(models.Model):
 
     def get_absolute_url_edit(self):
         return reverse('calendar_event_detail_update', args=[str(self.id)])
+    
+    def get_html_url(self):
+        url = reverse('event_edit', args=(self.id,))
+        return f'<a href="{url}"> {self.avilibility} </a>'

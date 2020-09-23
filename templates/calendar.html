@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'static/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'calendar_app/static/css/styles.css' %}">
     {% block title %}
     Django Calendar App
     {% endblock title %}
@@ -20,12 +20,12 @@
 <body>
 
 
-{% block container %}
+{% block content %}
 <div class="clearfix">
-    <a class="btn btn-info left" href="{% url 'calendar_app:calendar' %}?{{ prev_month }}"> Previous Month </a>
-    <a class="btn btn-info right" href="{% url 'calendar_app:calendar' %}?{{ next_month }}"> Next Month </a>
-    <a class="btn btn-info right" href="{% url 'calendar_app:event_new' %}"> Add Availability  </a>
+    <a class="btn btn-outline-primary left" href="{% url 'calendar' %}?{{ prev_month }}"> Previous Month </a>
+    <a class="btn btn-outline-primary right" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+    <a class="btn btn-outline-primary right" href="{% url 'event_add' %}"> Add Availability  </a>
 </div>
 {{ calendar }}
 
-{% endblock container %}
+{% endblock content %}

@@ -12,6 +12,8 @@ django-allauth = "==0.41.0"
 django-auth = "*"
 django-crispy-forms = "==1.8.1"
 django-multiselectfield = "*"
+django-scheduler = "*"
+django-bower = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
   <header>
@@ -14,7 +17,8 @@
      mb-3 bg-white border-bottom shadow-sm">
       <a href="{% url 'home' %}" class="navbar-brand my-0 mr-md-auto font-weight-normal">Staffing App</a>
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="{% url 'calendar_list' %}">Calendar</a>
+        <a class="p-2 text-dark" href="{% url 'calendar' %}">Calendar </a>
+        <a class="p-2 text-dark" href="{% url 'calendar_list' %}">Calendar List</a>
         <a class="p-2 text-dark" href="{% url 'event_add' %}">Add Avilibility</a>
         {% if user.is_authenticated %}
           <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
