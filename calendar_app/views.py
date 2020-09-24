@@ -42,6 +42,10 @@ class CalendarEventAdd(LoginRequiredMixin, CreateView):
         form.instance.manage = self.request.user
         return super(CalendarEventAdd, self).form_valid(form)
 
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(CalendarEventAdd, self).get_form_kwargs()
+        kwargs['user_id'] = self.request.user.pk
+        return kwargs
     
 
 class CalendarEventUpdate(LoginRequiredMixin, UpdateView):
