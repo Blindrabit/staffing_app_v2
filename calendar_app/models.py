@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.conf import settings
 
 
 class Event(models.Model):
@@ -11,7 +12,7 @@ class Event(models.Model):
         ('Busy', 'Busy'),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    manage = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    manage = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     avilibility = models.CharField(max_length=10, choices=avilibility_choices, editable=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
