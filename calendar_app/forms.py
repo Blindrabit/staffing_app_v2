@@ -20,11 +20,11 @@ class EventForm(forms.ModelForm):
             self.fields['start_time'].input_formats = ('%Y-%m-%dT%H:%M',)
             self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
         
-        def clean(self):
-            form_start_time = self.cleaned_data.get('start_time')
-            form_end_time = self.cleaned_data.get('end_time')
-            between = Event.objects.filter(manage_id=self.instance.manage_id, end_time__gte=form_start_time, start_time__lte=form_end_time)
-            if between:
-                raise forms.ValidationError('Already Calendar entry for this time')
-            super().clean()
-        
+    def clean(self, *args, **kwargs):
+        form_start_time = self.cleaned_data.get('start_time')
+        form_end_time = self.cleaned_data.get('end_time')
+        form_manage_id = self.cleaned_data.get('manage_id')
+        between = Event.objects.filter(end_time__gte=form_start_time, start_time__lte=form_end_time)
+        if between:
+            raise forms.ValidationError('Already Calendar entry for this time')
+        super().clean()

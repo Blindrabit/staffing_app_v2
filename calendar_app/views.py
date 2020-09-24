@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from datetime import datetime, timedelta, date
 from django.utils.safestring import mark_safe
 import calendar
@@ -37,10 +37,12 @@ class CalendarEventAdd(LoginRequiredMixin, CreateView):
     form_class = EventForm
     template_name = 'calendar_create_event_form.html' 
     success_url = reverse_lazy('calendar_list')
-    
+
     def form_valid(self, form):
         form.instance.manage = self.request.user
-        return super().form_valid(form)
+        return super(CalendarEventAdd, self).form_valid(form)
+
+    
 
 class CalendarEventUpdate(LoginRequiredMixin, UpdateView):
     model= Event
