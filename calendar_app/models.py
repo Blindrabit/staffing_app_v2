@@ -16,9 +16,10 @@ class Event(models.Model):
     avilibility = models.CharField(max_length=10, choices=avilibility_choices, editable=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    
 
     def __str__(self):
-        return self.avilibility + " - " + str(self.start_time) + " - " + str(self.end_time) + " - " +str(self.id)
+        return self.avilibility + " - " + str(self.start_time) + " - " + str(self.end_time)
 
     def get_absolute_url(self):
         return reverse('calendar_event_detail', args=[str(self.id)])

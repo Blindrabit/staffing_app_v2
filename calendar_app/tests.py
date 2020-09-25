@@ -25,11 +25,13 @@ class EventTests(TestCase):
         self.assertEqual(f'{self.event.end_time}','2020-09-30 17:00:00+00:00')
 
     def test_calendar_list_view(self):
+        self.client.login(email='test_username@example.com', password='da_password')
         response = self.client.get(reverse('calendar_list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'calendar_list.html')
     
     def test_event_detail_view(self):
+        self.client.login(email='test_username@example.com', password='da_password')
         response = self.client.get(self.event.get_absolute_url())
         no_response = self.client.get('/calendar/1/')
         self.assertEqual(response.status_code, 200)
@@ -47,6 +49,13 @@ class EventTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_event_update_view(self):
+        self.client.login(email='test_username@example.com', password='da_password')
         response = self.client.get(self.event.get_absolute_url_edit())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Update Avilibility')
+
+    def test_event_calendar_view(self):
+        self.client.login(email='test_username@example.com', password='da_password')
+        response = self.client.get(reverse('calendar'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'calendar.html')
