@@ -15,7 +15,6 @@ class MyCustomSignupForm(SignupForm):
                                             widget=FilteredSelectMultiple('HospitalListModel',False), 
                                             required=False, 
                                             )
-    
 
     def save(self, request):
         user = super(MyCustomSignupForm, self).save(request)
