@@ -7,19 +7,19 @@ from django.conf import settings
 
 class Event(models.Model):
 
-    avilibility_choices = [
-        ('Avilible', 'Avilible'),
+    availability_choices = [
+        ('Available', 'Available'),
         ('Busy', 'Busy'),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     manage = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    avilibility = models.CharField(max_length=10, choices=avilibility_choices, editable=True)
+    availability = models.CharField(max_length=10, choices=availability_choices, editable=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     
 
     def __str__(self):
-        return self.avilibility + " - " + str(self.start_time) + " - " + str(self.end_time)
+        return self.availability + " - " + str(self.start_time) + " - " + str(self.end_time)
 
     def get_absolute_url(self):
         return reverse('calendar_event_detail', args=[str(self.id)])
@@ -29,4 +29,4 @@ class Event(models.Model):
     
     def get_html_url(self):
         url = reverse('event_edit', args=(self.id,))
-        return f'<a href="{url}"> {self.avilibility} </a>'
+        return f'<a href="{url}"> {self.availability} </a>'

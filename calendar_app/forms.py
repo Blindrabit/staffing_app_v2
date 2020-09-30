@@ -11,7 +11,7 @@ class EventForm(forms.ModelForm):
             'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
             'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
             }
-        fields = ['avilibility','start_time','end_time']
+        fields = ['availability','start_time','end_time']
     
     def __init__(self, *args, user_id=None, **kwargs):   
         super(EventForm, self).__init__(*args, **kwargs)

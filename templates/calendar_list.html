@@ -8,28 +8,28 @@
 <table class="table table-bordered text-center">
     <thead class="thead-dark">
         <tr class="row">
-            <th class="col-5">Avilibility</th>
+            <th class="col-4">Availability</th>
             <th class="col-3">Start Time</th>
             <th class="col-3">End Time</th>
-            <th class="col-1">Update Avilibility</th>
+            <th class="col-2">Update Availability</th>
 
         </tr>
     </thead>
     <tbody>
         {% for event in event_list %}
-            {% if "Booked" in event.avilibility %}
+            {% if "Booked" in event.availability %}
                 <tr class="table-success row">
-                    <th class="col-5"><a href="{{ event.get_absolute_url }}">{{event.avilibility}}</a></th>
+                    <th class="col-4"><a href="{{ event.get_absolute_url }}">{{event.availability}}</a></th>
                     <th class="col-3">{{event.start_time}}</th>
                     <th class="col-3">{{event.end_time}}</th>
-                    <th class="col-1"><a href="{{ event.get_absolute_url_edit }}">Update</a></th>
+                    <th class="col-2"><a href="{{ event.get_absolute_url_edit }}">Update</a></th>
                 </tr>
             {% else %}
                 <tr class="table-bordered row">
-                    <th class="col-5"><a href="{{ event.get_absolute_url }}">{{ event.avilibility }}</a></th>
+                    <th class="col-4"><a href="{{ event.get_absolute_url }}">{{ event.availability }}</a></th>
                     <th class="col-3">{{event.start_time}}</th>
                     <th class="col-3">{{event.end_time}}</th>
-                    <th class="col-1"><a href="{{ event.get_absolute_url_edit }}">Update</a></th>
+                    <th class="col-2"><a href="{{ event.get_absolute_url_edit }}">Update</a></th>
                 </tr>
             {% endif %}
     </tbody>
