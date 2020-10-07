@@ -20,6 +20,8 @@
         <a class="p-2 text-dark" href="{% url 'calendar' %}">Calendar </a>
         <a class="p-2 text-dark" href="{% url 'calendar_list' %}">Calendar List</a>
         <a class="p-2 text-dark" href="{% url 'event_add' %}">Add Availability</a>
+        <a class="p-2 text-dark" href="{% url 'shiftlist' %}">Shift List</a>
+        <a class="p-2 text-dark" href="{% url 'createshift' %}">Add Shift</a>
         {% if user.is_authenticated %}
           <a class="p-2 text-dark" href="{% url 'account_logout' %}">Log Out</a>
           <a class="p-2 text-dark" href="{% url 'account_change_password' %}">Change Password</a>

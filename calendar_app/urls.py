@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .views import CalendarEventsView, CalendarEventDetail, CalendarEventAdd, CalendarEventUpdate, CalendarView
 
 urlpatterns = [
-    path('', CalendarEventsView.as_view(), name='calendar_list'),
+    path('list/', CalendarEventsView.as_view(), name='calendar_list'),
     path('<uuid:pk>/', CalendarEventDetail.as_view(), name='calendar_event_detail'),
     path('create/', CalendarEventAdd.as_view(), name='event_add' ),
     path('<uuid:pk>/update/', CalendarEventUpdate.as_view(), name='calendar_event_detail_update'),
-    path('calendar/', CalendarView.as_view(), name='calendar'),
+    path('', CalendarView.as_view(), name='calendar'),
 ]

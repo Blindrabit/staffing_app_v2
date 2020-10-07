@@ -16,10 +16,11 @@ class Event(models.Model):
     availability = models.CharField(max_length=10, choices=availability_choices, editable=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    hospital = models.CharField(max_length=100)
     
 
     def __str__(self):
-        return self.availability + " - " + str(self.start_time) + " - " + str(self.end_time)
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse('calendar_event_detail', args=[str(self.id)])
@@ -28,5 +29,5 @@ class Event(models.Model):
         return reverse('calendar_event_detail_update', args=[str(self.id)])
     
     def get_html_url(self):
-        url = reverse('event_edit', args=(self.id,))
+        url = reverse('calendar_event_detail_update', args(self.id,))
         return f'<a href="{url}"> {self.availability} </a>'

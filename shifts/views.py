@@ -6,12 +6,14 @@ from django.urls import reverse_lazy
 
 from .models import Shifts
 from .forms import ShiftForm
+from .utils import autoshiftandeventmatching
 
 
 class AllShiftsViews(LoginRequiredMixin, ListView):
     model = Shifts
     template_name = 'shiftlist.html'
     context_object_name = 'shift_list'
+    
 
     def get_queryset(self):
         return Shifts.objects.filter(manage=None)
