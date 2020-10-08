@@ -13,14 +13,14 @@ class EventTests(TestCase):
             password = 'da_password') 
         self.event = Event.objects.create(
             manage=self.user,  
-            avilibility='Booked',
+            availability='Booked',
             start_time='2020-09-30 08:00:00+00:00',
             end_time='2020-09-30 17:00:00+00:00',
         )
 
     def test_event_create(self):
         self.assertEqual(f'{self.event.manage}', 'test_username')
-        self.assertEqual(f'{self.event.avilibility}', 'Booked')
+        self.assertEqual(f'{self.event.availability}', 'Booked')
         self.assertEqual(f'{self.event.start_time}','2020-09-30 08:00:00+00:00')
         self.assertEqual(f'{self.event.end_time}','2020-09-30 17:00:00+00:00')
 
@@ -52,7 +52,7 @@ class EventTests(TestCase):
         self.client.login(email='test_username@example.com', password='da_password')
         response = self.client.get(self.event.get_absolute_url_edit())
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Update Avilibility')
+        self.assertContains(response, 'Update Availability')
 
     def test_event_calendar_view(self):
         self.client.login(email='test_username@example.com', password='da_password')
