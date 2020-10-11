@@ -6,7 +6,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from allauth.account.forms import SignupForm
 
-from .models import HospitalListModel
+from .models import HospitalListModel, AreaToWorkModel
 
 class MyCustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='First Name') 
@@ -14,6 +14,10 @@ class MyCustomSignupForm(SignupForm):
     dbs_number = forms.CharField(max_length=13, label='DBS Number')
     hospitals = forms.ModelMultipleChoiceField(queryset=HospitalListModel.objects.all(), 
                                             widget=FilteredSelectMultiple('HospitalListModel',False), 
+                                            required=False, 
+                                            )
+    area_to_work = forms.ModelMultipleChoiceField(queryset=AreaToWorkModel.objects.all(), 
+                                            widget=FilteredSelectMultiple('AreaToWorkModel',False), 
                                             required=False, 
                                             )
 
@@ -27,6 +31,7 @@ class MyCustomSignupForm(SignupForm):
         user = super(MyCustomSignupForm, self).save(request)
         user.dbs_number = self.cleaned_data['dbs_number']
         cleaned_hos_data = self.cleaned_data['hospitals'].values_list('pk',flat=True)
+        cleaned_hos_data = self.cleaned_data['area_to_work'].values_list('pk',flat=True)
         user.save()
         for hos in list(cleaned_hos_data):
             user.hospitals.add(hos)

@@ -15,6 +15,12 @@ class EventTests(TestCase):
             password = 'da_password') 
         self.event = Event.objects.create(
             manage=self.user,  
+            availability='Available',
+            start_time='2020-09-30 08:00:00+00:00',
+            end_time='2020-09-30 17:00:00+00:00',
+        )
+        self.eventbooked = Event.objects.create(
+            manage=self.user,  
             availability='Booked',
             start_time='2020-09-30 08:00:00+00:00',
             end_time='2020-09-30 17:00:00+00:00',
@@ -28,7 +34,7 @@ class EventTests(TestCase):
 
     def test_event_create(self):
         self.assertEqual(f'{self.event.manage}', 'test_username')
-        self.assertEqual(f'{self.event.availability}', 'Booked')
+        self.assertEqual(f'{self.event.availability}', 'Available')
         self.assertEqual(f'{self.event.start_time}','2020-09-30 08:00:00+00:00')
         self.assertEqual(f'{self.event.end_time}','2020-09-30 17:00:00+00:00')
 
@@ -44,7 +50,7 @@ class EventTests(TestCase):
         no_response = self.client.get('/calendar/1/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(no_response.status_code, 404)
-        self.assertContains(response, 'Booked')
+        self.assertContains(response, 'Available')
 
     def test_event_create_view_logged_in(self):
         self.client.login(email='test_username@example.com', password='da_password')
@@ -55,12 +61,18 @@ class EventTests(TestCase):
     def test_event_create_view_logged_out(self):
         response = self.client.get(reverse('event_add'))
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/calendar/create/', status_code=302, target_status_code=200)
 
     def test_event_update_view(self):
         self.client.login(email='test_username@example.com', password='da_password')
         response = self.client.get(self.event.get_absolute_url_edit())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Update Availability')
+
+    def test_event_update_redirect_if_booked_view(self):
+        self.client.login(email='test_username@example.com', password='da_password')
+        response = self.client.get(self.eventbooked.get_absolute_url_edit())
+        self.assertRedirects(response, reverse('calendar_list'), status_code=302, target_status_code=200)
 
     def test_event_calendar_view(self):
         self.client.login(email='test_username@example.com', password='da_password')

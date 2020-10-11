@@ -15,8 +15,12 @@ class Calendar(HTMLCalendar):
 		events_per_day = events.filter(start_time__day=day)
 		d = ''
 		for event in events_per_day:
-			d += f'<li><a href="{ event.id }/update/"> {event.availability} </a></li>'
-
+			if event.availability != 'Booked':
+				d += f'<li><a href="{ event.id }/update/"> {event.availability} </a></li>'
+			elif event.availability == None:
+				pass
+			else:
+				d += f'<li><a href="{ event.id }"> {event.availability} </a></li>'
 		if day != 0:
 			return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
 		return '<td></td>'

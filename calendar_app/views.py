@@ -53,7 +53,7 @@ class CalendarEventUpdate(LoginRequiredMixin, UpdateView):
     form_class = EventForm
     template_name='calendar_update_event_form.html'
     def get_queryset(self):
-        return Event.objects.filter(manage=self.request.user)
+        return Event.objects.filter(manage=self.request.user).exclude(availability='Booked')
 
     def get(self, request, *args, **kwargs):
         try:

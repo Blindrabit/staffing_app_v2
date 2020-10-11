@@ -9,7 +9,7 @@ from datetime import datetime, date, timedelta
 from .models import Shifts
 from .forms import ShiftForm
 from calendar_app.models import Event
-from users.models import HospitalListModel
+from users.models import HospitalListModel, AreaToWorkModel
 
 class ShiftsTests(TestCase):
     @factory.django.mute_signals(signals.post_save)
@@ -22,9 +22,13 @@ class ShiftsTests(TestCase):
         self.hospital = HospitalListModel.objects.create(
             hospital= 'test hospital',
             )
+        self.area = AreaToWorkModel.objects.create(
+            area = 'test_area',
+            )
         self.shifts = Shifts.objects.create(
                 manage=None,  
                 hospital=self.hospital,
+                area=self.area,
                 start_time='2020-09-30 08:00:00+00:00',
                 end_time='2020-09-30 17:00:00+00:00',
             )
@@ -54,11 +58,11 @@ class ShiftsTests(TestCase):
 
     def test_shifts_create_view_logged_out(self):
         response = self.client.get(reverse('createshift'))
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/shifts/create/', status_code=302, target_status_code=200)
 
     def test_shifts_list_view_logged_out(self):
         response = self.client.get(reverse('shiftlist'))
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/shifts/all/', status_code=302, target_status_code=200)
     
     def test_start_time_greater_than_end_time_validation_error(self):
         form = ShiftForm(self.bad_data)
@@ -73,12 +77,16 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
         self.hospital = HospitalListModel.objects.create(
             hospital= 'test hospital',
             )
+        self.area = AreaToWorkModel.objects.create(
+            area = 'test_area',
+        )
         self.user = get_user_model().objects.create_user(
             username = 'test_username', 
             email = 'test_username@example.com', 
             password = 'da_password',
             ) 
         self.user.hospitals.add(self.hospital)
+        self.user.area_to_work.add(self.area)
         self.event = Event.objects.create(
             manage=self.user,
             availability='Available',
@@ -88,6 +96,7 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
         self.shifts = Shifts.objects.create(
             manage=None,  
             hospital=self.hospital,
+            area=self.area,
             start_time=f'{date.today()+timedelta(days=10)} 08:00:00+00:00',
             end_time=f'{date.today()+timedelta(days=10)} 17:00:00+00:00',
             )
@@ -99,6 +108,8 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
         self.assertEqual(f'{self.event.start_time}', f'{date.today()+timedelta(days=10)} 08:00:00+00:00')
         self.assertEqual(f'{self.event.end_time}', f'{date.today()+timedelta(days=10)} 17:00:00+00:00')
         self.assertEqual(f'{self.event.hospital}', f'{self.shifts.hospital}')
+        self.assertEqual(f'{self.event.area}', f'{self.shifts.area}')
         self.assertEqual(f'{self.shifts.manage}', self.user.username)
+
         
   

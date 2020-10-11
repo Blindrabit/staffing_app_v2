@@ -17,6 +17,7 @@ class Event(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     hospital = models.CharField(max_length=100)
+    area = models.CharField(max_length=100)
     
 
     def __str__(self):
