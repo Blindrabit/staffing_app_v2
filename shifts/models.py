@@ -11,4 +11,4 @@ class Shifts(models.Model):
 
 
     def __str__(self):
-        return str(self.start_time) +" - "+ str(self.end_time)
+        return str(self.start_time) +" - "+ str(self.end_time) +" - "+str(self.hospital)

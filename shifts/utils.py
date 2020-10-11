@@ -17,13 +17,11 @@ def autoshiftandeventmatching():
             staff_hospital_list = CustomUser.objects.filter(pk=event_dict['manage']).values_list('hospitals')
             for hos in staff_hospital_list:
                 actual_hos_list.append(hos[0])
-                if (shift_dict['start_time'] >= event_dict['start_time'] and 
-                    shift_dict['end_time'] <= event_dict['end_time']and
-                    shift_dict['hospital'] in actual_hos_list
-                    ):
-                    Shifts.objects.filter(pk=shift_dict['id']).update(manage=event_dict['manage'])
-                    event.availability = "Busy"
-                    event.save()
-                    break
-
-        
+            if (shift_dict['start_time'] >= event_dict['start_time'] and 
+                shift_dict['end_time'] <= event_dict['end_time'] and
+                shift_dict['hospital'] in actual_hos_list
+                ):
+                Shifts.objects.filter(pk=shift_dict['id']).update(manage=event_dict['manage'])
+                event.availability = "Busy"
+                event.save()
+                break

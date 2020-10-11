@@ -20,7 +20,7 @@ class Event(models.Model):
     
 
     def __str__(self):
-        return str(self.id)
+        return str(self.manage)+' - '+str(self.availability) +' - '+ str(self.start_time)+' - '+str(self.end_time)
 
     def get_absolute_url(self):
         return reverse('calendar_event_detail', args=[str(self.id)])

@@ -3,8 +3,10 @@ from django.test import TestCase, Client
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.db.models import signals
+from datetime import datetime, date, timedelta
 
 from .models import Shifts
+from calendar_app.models import Event
 from users.models import HospitalListModel
 
 class ShiftsTests(TestCase):
@@ -53,16 +55,36 @@ class ShiftsTests(TestCase):
 
 
 
-class ShiftsModelSignalTests(TestCase):
+class ShiftsModelSignalandAutoBookingTests(TestCase):
 
     def setUp(self):
-        self.shifts = Shifts.objects.create(
-                manage=None,  
-                hospital=self.hospital,
-                start_time='2020-09-30 08:00:00+00:00',
-                end_time='2020-09-30 17:00:00+00:00',
+        self.hospital = HospitalListModel.objects.create(
+            hospital= 'test hospital',
             )
-    
+        self.user = get_user_model().objects.create_user(
+            username = 'test_username', 
+            email = 'test_username@example.com', 
+            password = 'da_password',
+            ) 
+        self.user.hospitals.add(self.hospital)
+        self.event = Event.objects.create(
+            manage=self.user,
+            availability='Available',
+            start_time=f'{date.today()+timedelta(days=10)} 08:00:00+00:00',
+            end_time=f'{date.today()+timedelta(days=10)} 17:00:00+00:00',
+            )
+        self.shifts = Shifts.objects.create(
+            manage=None,  
+            hospital=self.hospital,
+            start_time=f'{date.today()+timedelta(days=10)} 08:00:00+00:00',
+            end_time=f'{date.today()+timedelta(days=10)} 17:00:00+00:00',
+            )
 
 
+    def test_autobooking_feature(self):
+        self.event.refresh_from_db()
+        self.shifts.refresh_from_db()
+        self.assertEqual(f'{self.event.availability}', 'Busy')
+        self.assertEqual(f'{self.shifts.manage}', self.user.username)
         
+  
