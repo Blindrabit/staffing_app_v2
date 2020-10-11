@@ -1,8 +1,10 @@
 from django.test import TestCase, Client
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
+from django.forms import ValidationError
 
 from .models import Event
+from .forms import EventForm
 
 class EventTests(TestCase):
     
@@ -17,6 +19,12 @@ class EventTests(TestCase):
             start_time='2020-09-30 08:00:00+00:00',
             end_time='2020-09-30 17:00:00+00:00',
         )
+        self.bad_data = {
+            'manage':self.user,
+            'availability': 'available',
+            'start_time' : '2020-09-30 18:00:00+00:00',
+            'end_time' : '2020-09-30 17:00:00+00:00',
+        }
 
     def test_event_create(self):
         self.assertEqual(f'{self.event.manage}', 'test_username')
@@ -59,3 +67,8 @@ class EventTests(TestCase):
         response = self.client.get(reverse('calendar'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'calendar.html')
+    
+    def test_start_time_greater_than_end_time_validation_error(self):
+        form = EventForm(self.bad_data)
+        self.assertFalse(form.is_valid())
+        self.assertRaises(ValidationError)

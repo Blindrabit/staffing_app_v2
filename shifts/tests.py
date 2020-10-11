@@ -3,9 +3,11 @@ from django.test import TestCase, Client
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.db.models import signals
+from django.forms import ValidationError
 from datetime import datetime, date, timedelta
 
 from .models import Shifts
+from .forms import ShiftForm
 from calendar_app.models import Event
 from users.models import HospitalListModel
 
@@ -26,6 +28,11 @@ class ShiftsTests(TestCase):
                 start_time='2020-09-30 08:00:00+00:00',
                 end_time='2020-09-30 17:00:00+00:00',
             )
+        self.bad_data = {
+            'hospital' : self.hospital,
+            'start_time' : '2020-09-30 18:00:00+00:00',
+            'end_time' : '2020-09-30 17:00:00+00:00',
+        }
         
     def test_shifts_create(self):
         self.assertEqual(f'{self.shifts.manage}', 'None')
@@ -52,6 +59,11 @@ class ShiftsTests(TestCase):
     def test_shifts_list_view_logged_out(self):
         response = self.client.get(reverse('shiftlist'))
         self.assertEqual(response.status_code, 302)
+    
+    def test_start_time_greater_than_end_time_validation_error(self):
+        form = ShiftForm(self.bad_data)
+        self.assertFalse(form.is_valid())
+        self.assertRaises(ValidationError)
 
 
 
@@ -70,8 +82,8 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
         self.event = Event.objects.create(
             manage=self.user,
             availability='Available',
-            start_time=f'{date.today()+timedelta(days=10)} 08:00:00+00:00',
-            end_time=f'{date.today()+timedelta(days=10)} 17:00:00+00:00',
+            start_time=f'{date.today()+timedelta(days=10)} 07:00:00+00:00',
+            end_time=f'{date.today()+timedelta(days=10)} 18:00:00+00:00',
             )
         self.shifts = Shifts.objects.create(
             manage=None,  
@@ -80,11 +92,13 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
             end_time=f'{date.today()+timedelta(days=10)} 17:00:00+00:00',
             )
 
-
     def test_autobooking_feature(self):
         self.event.refresh_from_db()
         self.shifts.refresh_from_db()
-        self.assertEqual(f'{self.event.availability}', 'Busy')
+        self.assertEqual(f'{self.event.availability}', 'Booked')
+        self.assertEqual(f'{self.event.start_time}', f'{date.today()+timedelta(days=10)} 08:00:00+00:00')
+        self.assertEqual(f'{self.event.end_time}', f'{date.today()+timedelta(days=10)} 17:00:00+00:00')
+        self.assertEqual(f'{self.event.hospital}', f'{self.shifts.hospital}')
         self.assertEqual(f'{self.shifts.manage}', self.user.username)
         
   

@@ -2,7 +2,6 @@ from django import forms
 from django.forms import DateInput
 from .models import Event
 
-
 class EventForm(forms.ModelForm):
 
     class Meta:
@@ -32,4 +31,6 @@ class EventForm(forms.ModelForm):
         )
         if between.exists():
             raise forms.ValidationError('Already Calendar entry for this time')
+        elif form_start_time > form_end_time:
+            raise forms.ValidationError('End Time must be greater than the Start Time')
         return super().clean()
