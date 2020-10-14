@@ -31,11 +31,15 @@ class MyCustomSignupForm(SignupForm):
         user = super(MyCustomSignupForm, self).save(request)
         user.dbs_number = self.cleaned_data['dbs_number']
         cleaned_hos_data = self.cleaned_data['hospitals'].values_list('pk',flat=True)
-        cleaned_hos_data = self.cleaned_data['area_to_work'].values_list('pk',flat=True)
+        cleaned_area_data = self.cleaned_data['area_to_work'].values_list('pk',flat=True)
         user.save()
         for hos in list(cleaned_hos_data):
             user.hospitals.add(hos)
+        for area in list(cleaned_area_data):
+            user.area_to_work.add(area)
         return user
+
+        
 
     def signup(self, request, user): 
         user.first_name = self.cleaned_data['first_name'] 

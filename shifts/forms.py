@@ -10,7 +10,7 @@ class ShiftForm(forms.ModelForm):
             'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
             'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
             }
-        fields= ['hospital', 'start_time', 'end_time']
+        fields= ['hospital', 'area', 'start_time', 'end_time']
 
     def clean(self, *args, **kwargs):
         form_start_time = self.cleaned_data.get('start_time')
