@@ -8,6 +8,7 @@ from .models import Shifts
 from calendar_app.models import Event 
 from users.models import CustomUser, HospitalListModel, AreaToWorkModel
 
+@shared_task
 def autoshiftandeventmatching():
     actual_hos_list = []
     actual_area_list = []
