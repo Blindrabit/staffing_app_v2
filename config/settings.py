@@ -171,3 +171,7 @@ DEFAULT_FROM_EMAIL = 'a.r.tucker@hotmail.co.uk'
 
 #crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Redis config
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")

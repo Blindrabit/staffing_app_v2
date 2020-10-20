@@ -6,7 +6,6 @@ from django.urls import reverse_lazy
 
 from .models import Shifts
 from .forms import ShiftForm
-from .utils import autoshiftandeventmatching
 
 
 class AllShiftsViews(LoginRequiredMixin, ListView):

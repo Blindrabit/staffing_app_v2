@@ -1,6 +1,8 @@
+from __future__ import absolute_import, unicode_literals
 from django.forms.models import model_to_dict
 from datetime import datetime
 from django.conf import settings 
+from celery import shared_task
 
 from .models import Shifts
 from calendar_app.models import Event 
@@ -38,3 +40,7 @@ def autoshiftandeventmatching():
                 event.area = area_dict['area']
                 event.save()
                 break
+
+@shared_task
+def add(x,y):
+    return x + y
