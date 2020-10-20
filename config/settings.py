@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'crispy_forms',
+    'django_celery_beat',
 
     #local apps 
     'users.apps.UsersConfig',
