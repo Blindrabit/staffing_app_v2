@@ -39,15 +39,11 @@ class MyCustomSignupForm(SignupForm):
             user.area_to_work.add(area)
         return user
 
-        
-
     def signup(self, request, user): 
         user.first_name = self.cleaned_data['first_name'] 
         user.last_name = self.cleaned_data['last_name'] 
         user.save() 
         return user 
-
-
 
 class CustomUserChangeForm(UserChangeForm):
     

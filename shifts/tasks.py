@@ -10,8 +10,6 @@ from users.models import CustomUser, HospitalListModel, AreaToWorkModel
 
 @shared_task
 def autoshiftandeventmatching():
-    actual_hos_list = []
-    actual_area_list = []
     shifts_needing_fill = Shifts.objects.filter(start_time__gte=datetime.now()).filter(manage=None)
     for shift in shifts_needing_fill:
         shift_dict = model_to_dict(shift)
@@ -20,6 +18,8 @@ def autoshiftandeventmatching():
             event_dict = model_to_dict(event)
             staff_hospital_list = CustomUser.objects.filter(pk=event_dict['manage']).values_list('hospitals')
             staff_area_list = CustomUser.objects.filter(pk=event_dict['manage']).values_list('area_to_work')
+            actual_hos_list = []
+            actual_area_list = []
             for hos in staff_hospital_list:
                 actual_hos_list.append(hos[0])
             for area in staff_area_list:

@@ -176,3 +176,15 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #Redis config
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+
+#Celery beat schedule
+
+"""
+CELERY_BEAT_SCHEDULE = {
+    "scheduled_task": {
+        "task": "shifts.tasks.add",
+        "schedule": 10.0,
+        "args":(10,10),
+    }
+}
+"""
