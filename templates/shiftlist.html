@@ -19,8 +19,8 @@
 
     <tr class="table-bordered row">
         <th class="col-5">{{ shift.hospital }}</th>
-        <th class="col-3">{{shift.start_time}}</th>
-        <th class="col-3">{{shift.end_time}}</th>
+        <th class="col-3">{{shift.start_time|date:'d-m-Y - H:m'}}</th>
+        <th class="col-3">{{shift.end_time|date:'d-m-Y - H:m'}}</th>
         <th class="col-1"><a href="#">Book</a></th>
     </tr>
 
