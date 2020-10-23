@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 
 urlpatterns = [
     #django admin 
-    path('admin/', admin.site.urls),
+    path('admin-not-admin-784512/', admin.site.urls),
 
     #User management
     path('accounts/', include('allauth.urls')),
