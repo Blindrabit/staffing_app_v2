@@ -8,9 +8,10 @@
 <table class="table table-bordered text-center">
     <thead class="thead-dark">
         <tr class="row">
-            <th class="col-5">Hospital</th>
-            <th class="col-3">Start Time</th>
-            <th class="col-3">End Time</th>
+            <th class="col-3">Area</th>
+            <th class="col-4">Hospital</th>
+            <th class="col-2">Start Time</th>
+            <th class="col-2">End Time</th>
             <th class="col-1">Book</th>
         </tr>
     </thead>
@@ -18,9 +19,10 @@
 {% for shift in shift_list %}
 
     <tr class="table-bordered row">
-        <th class="col-5">{{ shift.hospital }}</th>
-        <th class="col-3">{{shift.start_time|date:'d/m/Y H:m'}}</th>
-        <th class="col-3">{{shift.end_time|date:'d/m/Y H:m'}}</th>
+        <th class="col-3">{{ shift.area }}</th>
+        <th class="col-4">{{ shift.hospital }}</th>
+        <th class="col-2">{{shift.start_time|date:'d/m/Y H:m'}}</th>
+        <th class="col-2">{{shift.end_time|date:'d/m/Y H:m'}}</th>
         <th class="col-1"><a href="#">Book</a></th>
     </tr>
 

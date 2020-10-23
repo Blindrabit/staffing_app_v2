@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "dbeef00c3ab62170c588d90e5c6824dc6de9c3be5f6e1befff4ba21e0d2d9953"
+            "sha256": "085bc8489fcdd72b80a063f53543c5aa0f760ff2f795dcd9a100468ecb87afe2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -244,7 +244,7 @@
                 "sha256:e65c221b2115a91035b55a593b6eb94aa1206fa3ab374f47c6dc10d364583ff9",
                 "sha256:f98b6f256be6cec8dd308a8563976ddaff0bdc18b730720f6f4bee927ffe926f"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
+            "index": "pypi",
             "version": "==4.6.1"
         },
         "mechanicalsoup": {
