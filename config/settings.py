@@ -150,7 +150,7 @@ DATETIME_INPUT_FORMATS += ['%d/%m/%Y %H:%M',]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
