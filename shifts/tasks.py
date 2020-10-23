@@ -5,10 +5,10 @@ from django.conf import settings
 from celery import shared_task
 
 from .models import Shifts
+from .scrape import scrape_own_site
 from calendar_app.models import Event 
 from users.models import CustomUser, HospitalListModel, AreaToWorkModel
 
-@shared_task
 def autoshiftandeventmatching():
     shifts_needing_fill = Shifts.objects.filter(start_time__gte=datetime.now()).filter(manage=None)
     for shift in shifts_needing_fill:
@@ -43,5 +43,7 @@ def autoshiftandeventmatching():
                 break
 
 @shared_task
-def add(x,y):
-    return x + y
+def run_scraping_own_site():
+    scrape_own_site()
+    autoshiftandeventmatching()
+

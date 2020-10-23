@@ -7,8 +7,8 @@ class ShiftForm(forms.ModelForm):
     class Meta:
         model = Shifts
         widgets = {
-            'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
-            'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+            'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%d-%m-%Y%H:%M'),
+            'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%d-%m-%Y%H:%M'),
             }
         fields= ['hospital', 'area', 'start_time', 'end_time']
 
