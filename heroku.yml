@@ -11,4 +11,3 @@ release:
         - python manage.py collectstatic --noinput
 run:
     web: gunicorn config.wsgi
-    celery: celery -A config worker -l INFO
