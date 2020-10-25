@@ -31,13 +31,6 @@ DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost','127.0.0.1']
 
-"""
-if os.environ.get('DEBUG', default=0).lower() in ['true','1']:
-    DEBUG = True 
-else:
-    DEBUG = False
-"""
-
 # Application definition
 
 INSTALLED_APPS = [
