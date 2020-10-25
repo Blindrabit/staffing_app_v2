@@ -20,3 +20,4 @@ run:
     celery-beat: 
         command:
             - python3 -m celery --pidfile= -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+            - heroku ps:scale celery-beat=1
