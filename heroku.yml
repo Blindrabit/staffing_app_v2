@@ -5,10 +5,13 @@ setup:
 build:
     docker:
         web: Dockerfile
+        celery: Dockerfile
 release:
     image: web
     command:
         - python manage.py collectstatic --noinput
 run:
     web: gunicorn config.wsgi
-    celery: celery -A config worker -l INFO
+    celery: 
+        command:
+            - celery -A config worker -l INFO

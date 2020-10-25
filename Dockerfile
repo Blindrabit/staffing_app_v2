@@ -13,5 +13,5 @@ WORKDIR /code
 COPY Pipfile Pipfile.lock /code/
 RUN pip install pipenv && pipenv install --system
 
-#Copy project2
+#Copy project
 COPY . /code/
