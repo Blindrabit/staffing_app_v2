@@ -8,6 +8,7 @@ from datetime import datetime, date, timedelta
 
 from .models import Shifts
 from .forms import ShiftForm
+from .tasks import autoshiftandeventmatching
 from calendar_app.models import Event
 from users.models import HospitalListModel, AreaToWorkModel
 
@@ -102,6 +103,7 @@ class ShiftsModelSignalandAutoBookingTests(TestCase):
             )
 
     def test_autobooking_feature(self):
+        autoshiftandeventmatching()
         self.event.refresh_from_db()
         self.shifts.refresh_from_db()
         self.assertEqual(f'{self.event.availability}', 'Booked')
