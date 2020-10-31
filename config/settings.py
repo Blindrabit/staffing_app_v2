@@ -16,20 +16,19 @@ from django.conf.global_settings import DATETIME_INPUT_FORMATS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
+ENVIRONMENT=os.environ.get('ENVIRONMENT', default='production')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
+SECRET_KEY=os.environ.get('SECRET_KEY')
+print
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG=int(os.environ.get('DEBUG', 0))
 
-
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost','127.0.0.1']
+ALLOWED_HOSTS=['.herokuapp.com', 'localhost','127.0.0.1']
 
 # Application definition
 
@@ -165,8 +164,6 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 ACCOUNT_FORMS = {'signup': 'users.forms.MyCustomSignupForm'}
 
 ACCOUNT_SESSION_REMEMBER = True
@@ -175,7 +172,14 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-DEFAULT_FROM_EMAIL = 'a.r.tucker@hotmail.co.uk'
+#email set up 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'blindr.tech@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'blindr.tech@gmail.com'
 
 #crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
