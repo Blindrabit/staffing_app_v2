@@ -47,12 +47,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'crispy_forms',
     'django_celery_beat',
+    'rest_framework',
 
     #local apps 
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'calendar_app.apps.CalendarAppConfig',
     'shifts.apps.ShiftsConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [

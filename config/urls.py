@@ -27,5 +27,6 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('calendar/', include('calendar_app.urls')),
     path('shifts/', include('shifts.urls')),
+    path('api/', include('api.urls')),
     path('', include('users.urls')),
 ]
