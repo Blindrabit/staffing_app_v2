@@ -57,6 +57,12 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSON_CLASSES' : [
+        'rest_framework.permissons.IsAuthenticated',
+    ]
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

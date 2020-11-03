@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import ShiftsAPI
+from .views import ShiftsAPI, ShiftDetailAPI
 
 urlpatterns = [
-    path('shifts/', ShiftsAPI.as_view(), name='API-shiftlist'),
+    #shifts APIs
+    path('shifts/', ShiftsAPI.as_view(), name='api-shiftlist'),
+    path('shifts/<int:pk>/', ShiftDetailAPI.as_view(), name='api-shiftdetail'),
+
 ]

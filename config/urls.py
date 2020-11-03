@@ -22,11 +22,12 @@ urlpatterns = [
 
     #User management
     path('accounts/', include('allauth.urls')),
+    path('auth-api/', include('rest_framework.urls')),
 
     #Local apps
     path('', include('pages.urls')),
     path('calendar/', include('calendar_app.urls')),
     path('shifts/', include('shifts.urls')),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.urls')),
     path('', include('users.urls')),
 ]
