@@ -58,8 +58,8 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSON_CLASSES' : [
-        'rest_framework.permissons.IsAuthenticated',
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.AllowAny',
     ]
 }
 
@@ -159,7 +159,7 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL ='users.CustomUser'
 
-
+    
 #DJANGO ALLAUTH
 
 LOGIN_REDIRECT_URL = 'home'
