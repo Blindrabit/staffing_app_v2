@@ -17,7 +17,6 @@ class ShiftDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ShiftSerializer
 
 class ShiftCreateAPI(generics.CreateAPIView):
-    permission_classes = (IsSuperUserOrReadOnly,)
     queryset = Shifts.objects.all()
     serializer_class = ShiftSerializer
 
