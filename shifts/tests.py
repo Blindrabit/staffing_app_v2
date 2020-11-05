@@ -7,10 +7,11 @@ from django.forms import ValidationError
 from datetime import datetime, date, timedelta
 
 from .models import Shifts
-from .forms import ShiftForm
-from .tasks import autoshiftandeventmatching
 from calendar_app.models import Event
 from users.models import HospitalListModel, AreaToWorkModel
+from .forms import ShiftForm
+from .tasks import autoshiftandeventmatching
+
 
 class ShiftsTests(TestCase):
     @factory.django.mute_signals(signals.post_save)
