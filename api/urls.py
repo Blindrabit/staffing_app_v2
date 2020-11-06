@@ -8,7 +8,7 @@ urlpatterns = [
     path('shifts/<int:pk>/', ShiftDetailAPI.as_view(), name='api-shift-detail-update'),
     #calendar APIs
     path('calendar/', CalendarListAPI.as_view(), name='api-calendar-list'),
-    path('calendar/<int:pk>/', CalendarDetailAPI.as_view(), name='api-calendar-detail-update'),
+    path('calendar/<uuid:pk>/', CalendarDetailAPI.as_view(), name='api-calendar-detail-update'),
     path('calendar/create/', CalendarCreateAPI.as_view(), name='api-calendar-create'),
     #user APIs
     path('hos/<int:pk>/', HosDetailAPI.as_view(), name='api-hospital-detail-update'),
