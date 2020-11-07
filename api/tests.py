@@ -166,3 +166,24 @@ class HospitalandAreaTests(APITestCase):
         data = {'hospital' : 'test_hospital(edited)'}
         response = self.client.put(url, data , format='json')
         self.assertEquals(response.data['hospital'], 'test_hospital(edited)')
+
+    def test_area_list_api(self):
+        url = reverse('api-area-list')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+    
+    def test_area_create_api(self):
+        url = reverse('api-area-create')
+        data = { 'area' : 'test_area_api'}
+        response = self.client.post(url, data, format='json')
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.data['area'], 'test_area_api')
+
+    def test_area_detail_update_api(self):
+        url = f'/api/v1/area/{self.area.id}/'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        data = {'area' : 'test_area(edited)'}
+        response = self.client.put(url, data , format='json')
+        self.assertEquals(response.data['area'], 'test_area(edited)')
+        
