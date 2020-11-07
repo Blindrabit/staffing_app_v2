@@ -116,3 +116,53 @@ class CalendarAPITests(APITestCase):
         response = self.client.put(url, data, format='json')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.data['end_time'], '2020-09-30T18:00:00Z')
+
+class HospitalandAreaTests(APITestCase):
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username = 'test_username', 
+            email = 'test_username@example.com', 
+            password = 'da_password',
+            ) 
+        self.client.force_authenticate(user=self.user)
+        self.hospital = HospitalListModel.objects.create(
+            hospital= 'test hospital',
+            )
+        self.area = AreaToWorkModel.objects.create(
+            area = 'test_area',
+            )
+        self.shifts = Shifts.objects.create(
+            manage=None,  
+            hospital=self.hospital,
+            area=self.area,
+            start_time='2020-09-30 08:00:00+00:00',
+            end_time='2020-09-30 17:00:00+00:00',
+            )
+        self.eventbooked = Event.objects.create(
+            manage=self.user,  
+            availability='Booked',
+            start_time='2020-09-30 08:00:00+00:00',
+            end_time='2020-09-30 17:00:00+00:00',
+            )
+
+    def test_hospital_list_api(self):
+        url = reverse('api-hospital-list')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+    
+    def test_hospital_create_api(self):
+        url = reverse('api-hospital-create')
+        data = {'hospital' : 'test_hospital2'}
+        response = self.client.post(url, data, format='json')
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(HospitalListModel.objects.all().count(), 2)
+        self.assertEquals(response.data['hospital'], 'test_hospital2')
+    
+    def test_hospital_update_detail_api(self):
+        url = f'/api/v1/hos/{self.hospital.id}/'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        data = {'hospital' : 'test_hospital(edited)'}
+        response = self.client.put(url, data , format='json')
+        self.assertEquals(response.data['hospital'], 'test_hospital(edited)')
