@@ -23,6 +23,8 @@ urlpatterns = [
     #User management
     path('accounts/', include('allauth.urls')),
     path('auth-api/', include('rest_framework.urls')),
+    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('api/v1/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 
     #Local apps
     path('', include('pages.urls')),
