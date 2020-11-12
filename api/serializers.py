@@ -19,6 +19,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         data_dict['dbs_number'] = self.validated_data.get('dbs_number', '')
         data_dict['hospitals'] = self.validated_data.get('hospitals', '')
         data_dict['area_to_work'] = self.validated_data.get('area_to_work', '')
+        print('serializer :' + str(data_dict))
         return data_dict
 
 class ShiftSerializer(serializers.ModelSerializer):
