@@ -7,6 +7,57 @@ from django.contrib.auth import get_user_model
 from shifts.models import Shifts
 from users.models import HospitalListModel, AreaToWorkModel
 
+class UserSignUpTest(APITestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username = 'test_username', 
+            email = 'test_username@example.com', 
+            password = 'da_password',
+            ) 
+        self.client.force_authenticate(user=self.user)
+        self.hospital = HospitalListModel.objects.create(
+            hospital= 'test hospital',
+            )
+        self.area = AreaToWorkModel.objects.create(
+            area = 'test_area',
+            )
+        self.shifts = Shifts.objects.create(
+                manage=None,  
+                hospital=self.hospital,
+                area=self.area,
+                start_time='2020-09-30 08:00:00+00:00',
+                end_time='2020-09-30 17:00:00+00:00',
+            )
+
+    def test_log_in_api(self):
+        url = '/auth-api/login/'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        data = {'email' : 'test_username@example.com',
+                'password' : 'da_password'
+            }
+        response = self.client.post(url, data, format='json')
+        self.assertEquals(response.status_code, 200)
+    
+    def test_log_out_api(self):
+        url = '/auth-api/logout/'
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_user_create_api(self):
+        url = '/api/v1/dj-rest-auth/registration/'
+        data = {'username' : 'test_username2', 
+                'email'  : 'test_username2@example.com', 
+                'password1' : 'da_password',
+                'password2' : 'da_password',
+                'dbs_number' : 123456,
+                'hospitals' : [self.hospital.pk],
+                'area_to_work' : [self.area.pk],
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEquals(response.status_code, 201)
+        
+
 class ShiftAPITest(APITestCase):
 
     def setUp(self):
