@@ -20,14 +20,23 @@ class ShiftCreateAPI(generics.CreateAPIView):
     queryset = Shifts.objects.all()
     serializer_class = ShiftSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(manage=self.request.user)
+
 #Calendar API Views
 class CalendarListAPI(generics.ListAPIView):
-    queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+    def get_queryset(self):
+        user = self.request.user
+        return Event.objects.filter(manage=user)
+
 class CalendarDetailAPI(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Event.objects.filter(manage=user)
 
 class CalendarCreateAPI(generics.CreateAPIView):
     queryset = Event.objects.all()
