@@ -141,3 +141,4 @@ cython_debug/
 docker-compose.yml
 docker-compose.prod.yml
 test
+scrape.py
