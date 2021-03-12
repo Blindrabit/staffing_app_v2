@@ -140,5 +140,5 @@ cython_debug/
 #Dockerfile
 docker-compose.yml
 docker-compose.prod.yml
-test
-scrape.py
+
+.git.bfg-report/
