@@ -7,6 +7,7 @@ from .models import AreaToWorkModel, HospitalListModel
 
 CustomUser = get_user_model()
 
+
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser

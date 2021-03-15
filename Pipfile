@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 
 [packages]
 django = "==3.1"
@@ -34,6 +35,11 @@ drf-yasg = "*"
 coverage = "*"
 flake8 = "*"
 flake8-isort = "*"
+black = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

@@ -142,3 +142,5 @@ docker-compose.yml
 docker-compose.prod.yml
 
 .git.bfg-report/
+
+.vscode

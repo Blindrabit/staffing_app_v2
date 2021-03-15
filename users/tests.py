@@ -39,6 +39,7 @@ class CustomUserTests(TestCase):
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
 
+
 class SignUpPageTests(TestCase):
 
     username = 'newuser'
@@ -60,6 +61,6 @@ class SignUpPageTests(TestCase):
         self.assertContains(self.response, 'csrfmiddlewaretoken')
         new_user = get_user_model().objects.create_user(self.username, self.email)
         self.assertEqual(get_user_model().objects.all().count(), 1)
-        self.assertEqual(get_user_model().objects.all()[0].username, self.username)
+        self.assertEqual(get_user_model().objects.all()
+                         [0].username, self.username)
         self.assertEqual(get_user_model().objects.all()[0].email, self.email)
-
