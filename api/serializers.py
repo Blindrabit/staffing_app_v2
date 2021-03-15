@@ -11,8 +11,10 @@ from users.models import AreaToWorkModel, HospitalListModel
 
 class CustomRegisterSerializer(RegisterSerializer):
     dbs_number = serializers.CharField(max_length=13, required=True)
-    hospitals = serializers.PrimaryKeyRelatedField(many=True, queryset=HospitalListModel.objects.all())
-    area_to_work = serializers.PrimaryKeyRelatedField(many=True, queryset=AreaToWorkModel.objects.all())
+    hospitals = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=HospitalListModel.objects.all())
+    area_to_work = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=AreaToWorkModel.objects.all())
 
     def get_cleaned_date(self):
         data_dict = super().get_cleaned_data()
@@ -21,23 +23,27 @@ class CustomRegisterSerializer(RegisterSerializer):
         data_dict['area_to_work'] = self.validated_data.get('area_to_work', '')
         return data_dict
 
+
 class ShiftSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'start_time', 'end_time', 'hospital', 'manage', 'area',)
+        fields = ('id', 'start_time', 'end_time',
+                  'hospital', 'manage', 'area',)
         model = Shifts
+
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'start_time', 'end_time', 'availability', 'manage',)
         model = Event
 
+
 class HosSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'hospital',)
         model = HospitalListModel
 
+
 class AreaSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'area')
         model = AreaToWorkModel
-
