@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -16,19 +17,19 @@ from django.conf.global_settings import DATETIME_INPUT_FORMATS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-ENVIRONMENT=os.environ.get('ENVIRONMENT', default='production')
+ENVIRONMENT = os.environ.get('ENVIRONMENT', default='production')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY=os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 print
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG=int(os.environ.get('DEBUG', 0))
+DEBUG = int(os.environ.get('DEBUG', 0))
 
-ALLOWED_HOSTS=['.herokuapp.com', 'localhost','127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #3rd party apps
+    # 3rd party apps
     'allauth',
     'allauth.account',
     'crispy_forms',
@@ -54,7 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'drf_yasg',
 
-    #local apps 
+    # local apps
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'calendar_app.apps.CalendarAppConfig',
@@ -63,10 +64,10 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES' : [
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES' : [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication'
     ],
@@ -159,7 +160,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATETIME_INPUT_FORMATS += ['%d/%m/%Y %H:%M',]
+DATETIME_INPUT_FORMATS += ['%d/%m/%Y %H:%M', ]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -172,10 +173,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-AUTH_USER_MODEL ='users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
-    
-#DJANGO ALLAUTH
+
+# DJANGO ALLAUTH
 
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
@@ -195,7 +196,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-#email set up 
+# email set up
 if ENVIRONMENT == 'production':
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
@@ -208,14 +209,14 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'blindr.tech@gmail.com'
 
-#crispy forms
+# crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-#Redis config
+# Redis config
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
 
-#Celery beat schedule
+# Celery beat schedule
 
 """
 CELERY_BEAT_SCHEDULE = {
@@ -228,14 +229,11 @@ CELERY_BEAT_SCHEDULE = {
 """
 
 
-
-#heroku
-import dj_database_url
-
+# heroku
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-#production 
+# production
 if ENVIRONMENT == 'production':
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 3600
