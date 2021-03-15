@@ -18,13 +18,16 @@ class CalendarEventsView(LoginRequiredMixin, ListView):
     model = Event
     context_object_name = 'event_list'
     template_name = 'calendar_list.html'
+
     def get_queryset(self):
         return Event.objects.filter(manage=self.request.user)
+
 
 class CalendarEventDetail(LoginRequiredMixin, DetailView):
     model = Event
     context_object_name = 'event'
     template_name = 'calendar_event_detail.html'
+
     def get_queryset(self):
         return Event.objects.filter(manage=self.request.user)
 
@@ -34,10 +37,11 @@ class CalendarEventDetail(LoginRequiredMixin, DetailView):
         except Http404:
             return redirect(reverse('calendar_list'))
 
+
 class CalendarEventAdd(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
-    template_name = 'calendar_create_event_form.html' 
+    template_name = 'calendar_create_event_form.html'
     success_url = reverse_lazy('calendar_list')
 
     def form_valid(self, form):
@@ -48,12 +52,13 @@ class CalendarEventAdd(LoginRequiredMixin, CreateView):
         kwargs = super(CalendarEventAdd, self).get_form_kwargs()
         kwargs['user_id'] = self.request.user.pk
         return kwargs
-    
+
 
 class CalendarEventUpdate(LoginRequiredMixin, UpdateView):
-    model= Event
+    model = Event
     form_class = EventForm
-    template_name='calendar_update_event_form.html'
+    template_name = 'calendar_update_event_form.html'
+
     def get_queryset(self):
         return Event.objects.filter(manage=self.request.user).exclude(availability='Booked')
 
@@ -62,6 +67,7 @@ class CalendarEventUpdate(LoginRequiredMixin, UpdateView):
             return super(CalendarEventUpdate, self).get(request, *args, **kwargs)
         except Http404:
             return redirect(reverse('calendar_list'))
+
 
 class CalendarView(LoginRequiredMixin, ListView):
     model = Event
@@ -78,17 +84,20 @@ class CalendarView(LoginRequiredMixin, ListView):
         context['next_month'] = next_month(d)
         return context
 
+
 def get_date(req_day):
     if req_day:
         year, month = (int(x) for x in req_day.split('-'))
         return date(year, month, day=1)
     return datetime.today()
 
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]

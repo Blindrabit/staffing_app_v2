@@ -11,17 +11,16 @@ class EventForm(forms.ModelForm):
         widgets = {
             'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
             'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
-            }
-        fields = ['availability','start_time','end_time']
-    
-    def __init__(self, *args, user_id=None, **kwargs):   
+        }
+        fields = ['availability', 'start_time', 'end_time']
+
+    def __init__(self, *args, user_id=None, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         self.user_id = user_id
         # input_formats parses HTML5 datetime-local input to datetime field
         self.fields['start_time'].input_formats = ('%Y-%m-%dT%H:%M',)
         self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
-    
-    
+
     def clean(self, *args, **kwargs):
         form_start_time = self.cleaned_data.get('start_time')
         form_end_time = self.cleaned_data.get('end_time')
@@ -34,5 +33,6 @@ class EventForm(forms.ModelForm):
         if between.exists():
             raise forms.ValidationError('Already Calendar entry for this time')
         elif form_start_time > form_end_time:
-            raise forms.ValidationError('End Time must be greater than the Start Time')
+            raise forms.ValidationError(
+                'End Time must be greater than the Start Time')
         return super().clean()
