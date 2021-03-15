@@ -17,4 +17,3 @@ class HomePageTests(SimpleTestCase):
         self.assertNotContains(self.response, 'This should be there!')
         view = resolve('/')
         self.assertEqual(view.func.__name__, HomePageView.as_view().__name__)
-
