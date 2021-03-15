@@ -14,14 +14,18 @@ from .scrape import scrape_own_site
 
 
 def autoshiftandeventmatching():
-    shifts_needing_fill = Shifts.objects.filter(start_time__gte=datetime.now()).filter(manage=None)
+    shifts_needing_fill = Shifts.objects.filter(
+        start_time__gte=datetime.now()).filter(manage=None)
     for shift in shifts_needing_fill:
         shift_dict = model_to_dict(shift)
-        staff_available = Event.objects.filter(start_time__gte=datetime.now()).filter(availability='Available')
+        staff_available = Event.objects.filter(
+            start_time__gte=datetime.now()).filter(availability='Available')
         for event in staff_available:
             event_dict = model_to_dict(event)
-            staff_hospital_list = CustomUser.objects.filter(pk=event_dict['manage']).values_list('hospitals')
-            staff_area_list = CustomUser.objects.filter(pk=event_dict['manage']).values_list('area_to_work')
+            staff_hospital_list = CustomUser.objects.filter(
+                pk=event_dict['manage']).values_list('hospitals')
+            staff_area_list = CustomUser.objects.filter(
+                pk=event_dict['manage']).values_list('area_to_work')
             actual_hos_list = []
             actual_area_list = []
             for hos in staff_hospital_list:
@@ -32,12 +36,13 @@ def autoshiftandeventmatching():
             hospital_dict = model_to_dict(hospital)
             area = AreaToWorkModel.objects.get(pk=shift_dict['area'])
             area_dict = model_to_dict(area)
-            if (shift_dict['start_time'] >= event_dict['start_time'] and 
-                shift_dict['end_time'] <= event_dict['end_time'] and
-                shift_dict['hospital'] in actual_hos_list and
-                shift_dict['area'] in actual_area_list
+            if (shift_dict['start_time'] >= event_dict['start_time'] and
+                    shift_dict['end_time'] <= event_dict['end_time'] and
+                    shift_dict['hospital'] in actual_hos_list and
+                    shift_dict['area'] in actual_area_list
                 ):
-                Shifts.objects.filter(pk=shift_dict['id']).update(manage=event_dict['manage'])
+                Shifts.objects.filter(pk=shift_dict['id']).update(
+                    manage=event_dict['manage'])
                 event.availability = "Booked"
                 event.start_time = shift_dict['start_time']
                 event.end_time = shift_dict['end_time']
@@ -46,8 +51,8 @@ def autoshiftandeventmatching():
                 event.save()
                 break
 
+
 @shared_task
 def run_scraping_own_site():
     scrape_own_site()
     autoshiftandeventmatching()
-

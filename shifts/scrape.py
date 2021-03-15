@@ -26,7 +26,7 @@ def scrape_own_site():
     row_list = []
     for cell in row:
         row_list.append(cell.text)
-    for cell in range(0,len(row_list),5):
+    for cell in range(0, len(row_list), 5):
         s = Shifts()
         s.area = AreaToWorkModel.objects.get(area=row_list[cell])
         s.hospital = HospitalListModel.objects.get(hospital=row_list[cell+1])

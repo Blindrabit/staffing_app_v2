@@ -12,7 +12,6 @@ class AllShiftsViews(LoginRequiredMixin, ListView):
     model = Shifts
     template_name = 'shiftlist.html'
     context_object_name = 'shift_list'
-    
 
     def get_queryset(self):
         return Shifts.objects.filter(manage=None)
@@ -23,4 +22,3 @@ class CreateShiftView(LoginRequiredMixin, CreateView):
     form_class = ShiftForm
     template_name = 'shiftcreate.html'
     success_url = reverse_lazy('shiftlist')
-

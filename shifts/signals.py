@@ -7,4 +7,4 @@ from .tasks import autoshiftandeventmatching
 
 @receiver(post_save, sender=Shifts)
 def shiftsavedsignalreciever(sender, **kwargs):
-    pass #autoshiftandeventmatching()
+    pass  # autoshiftandeventmatching()
