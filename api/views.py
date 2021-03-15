@@ -1,11 +1,13 @@
 from rest_framework import generics, permissions
 
-from shifts.models import Shifts
 from calendar_app.models import Event
-from users.models import HospitalListModel, AreaToWorkModel
+from shifts.models import Shifts
+from users.models import AreaToWorkModel, HospitalListModel
 
-from .serializers import ShiftSerializer, EventSerializer, HosSerializer, AreaSerializer
 from .permissions import IsSuperUserOrReadOnly
+from .serializers import (AreaSerializer, EventSerializer, HosSerializer,
+                          ShiftSerializer)
+
 
 #Shifts API views
 class ShiftsAPI(generics.ListAPIView):

@@ -1,11 +1,12 @@
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from calendar_app.models import Event
-from django.contrib.auth import get_user_model
 from shifts.models import Shifts
-from users.models import HospitalListModel, AreaToWorkModel
+from users.models import AreaToWorkModel, HospitalListModel
+
 
 class UserSignUpTest(APITestCase):
     def setUp(self):

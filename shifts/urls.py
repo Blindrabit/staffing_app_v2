@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import AllShiftsViews, CreateShiftView 
+
+from .views import AllShiftsViews, CreateShiftView
 
 urlpatterns =[
     path('all/', AllShiftsViews.as_view(), name='shiftlist'),

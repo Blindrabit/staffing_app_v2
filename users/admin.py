@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from .models import HospitalListModel, AreaToWorkModel
 from .forms import CustomUserChangeForm
+from .models import AreaToWorkModel, HospitalListModel
 
 CustomUser = get_user_model()
 

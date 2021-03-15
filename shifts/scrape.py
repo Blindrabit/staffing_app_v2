@@ -1,13 +1,17 @@
-from __future__ import absolute_import ,unicode_literals
-from celery import shared_task
-from bs4 import BeautifulSoup
-import requests
-import mechanicalsoup
+from __future__ import absolute_import, unicode_literals
+
 import os
 
-from .models import Shifts
+import mechanicalsoup
+import requests
+from bs4 import BeautifulSoup
+from celery import shared_task
+
+from users.models import AreaToWorkModel, HospitalListModel
+
 from .forms import ShiftForm
-from users.models import HospitalListModel, AreaToWorkModel
+from .models import Shifts
+
 
 def scrape_own_site():
     browser = mechanicalsoup.StatefulBrowser()

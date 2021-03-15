@@ -31,6 +31,9 @@ dj-rest-auth = "*"
 pyyaml = "==5.3.1"
 uritemplate = "==3.0.1"
 drf-yasg = "*"
+coverage = "*"
+flake8 = "*"
+flake8-isort = "*"
 
 [requires]
 python_version = "3.8"

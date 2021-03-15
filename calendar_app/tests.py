@@ -1,10 +1,11 @@
-from django.test import TestCase, Client
-from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.forms import ValidationError
+from django.test import Client, TestCase
+from django.urls import reverse, reverse_lazy
 
-from .models import Event
 from .forms import EventForm
+from .models import Event
+
 
 class EventTests(TestCase):
     

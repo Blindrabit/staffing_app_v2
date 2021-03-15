@@ -1,15 +1,17 @@
+from datetime import date, datetime, timedelta
+
 import factory
-from django.test import TestCase, Client
-from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.db.models import signals
 from django.forms import ValidationError
-from datetime import datetime, date, timedelta
+from django.test import Client, TestCase
+from django.urls import reverse, reverse_lazy
 
-from .models import Shifts
 from calendar_app.models import Event
-from users.models import HospitalListModel, AreaToWorkModel
+from users.models import AreaToWorkModel, HospitalListModel
+
 from .forms import ShiftForm
+from .models import Shifts
 from .tasks import autoshiftandeventmatching
 
 

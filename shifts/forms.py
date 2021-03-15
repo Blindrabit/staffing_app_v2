@@ -3,6 +3,7 @@ from django.forms import DateInput
 
 from .models import Shifts
 
+
 class ShiftForm(forms.ModelForm):
     class Meta:
         model = Shifts

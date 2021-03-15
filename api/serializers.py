@@ -1,14 +1,12 @@
-from rest_framework import serializers
-
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
 
 from calendar_app.models import Event
 from shifts.models import Shifts
-from users.models import HospitalListModel, AreaToWorkModel
-from django.contrib.auth import get_user_model
-
+from users.models import AreaToWorkModel, HospitalListModel
 
 
 class CustomRegisterSerializer(RegisterSerializer):

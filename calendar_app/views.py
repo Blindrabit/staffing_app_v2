@@ -1,16 +1,18 @@
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, FormView, UpdateView
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, render
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from datetime import datetime, timedelta, date
-from django.utils.safestring import mark_safe
 import calendar
+from datetime import date, datetime, timedelta
 
-from .models import Event
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
+from django.utils.safestring import mark_safe
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, FormView, UpdateView
+
 from .forms import EventForm
+from .models import Event
 from .utils import Calendar
+
 
 class CalendarEventsView(LoginRequiredMixin, ListView):
     model = Event

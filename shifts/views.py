@@ -1,11 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 
-from .models import Shifts
 from .forms import ShiftForm
+from .models import Shifts
 
 
 class AllShiftsViews(LoginRequiredMixin, ListView):

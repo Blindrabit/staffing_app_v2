@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from django.urls import path
 from django.contrib.auth.decorators import login_required
+from django.urls import path
 
-from .views import CalendarEventsView, CalendarEventDetail, CalendarEventAdd, CalendarEventUpdate, CalendarView
+from .views import (CalendarEventAdd, CalendarEventDetail, CalendarEventsView,
+                    CalendarEventUpdate, CalendarView)
 
 urlpatterns = [
     path('list/', CalendarEventsView.as_view(), name='calendar_list'),

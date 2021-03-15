@@ -1,8 +1,9 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.urls import reverse, resolve
+from django.test import TestCase
+from django.urls import resolve, reverse
 
 from .forms import MyCustomSignupForm
+
 
 class CustomUserTests(TestCase):
 

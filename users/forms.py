@@ -1,12 +1,12 @@
+from allauth.account.forms import SignupForm
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm
 
-from allauth.account.forms import SignupForm
+from .models import AreaToWorkModel, HospitalListModel
 
-from .models import HospitalListModel, AreaToWorkModel
 
 class MyCustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='First Name') 

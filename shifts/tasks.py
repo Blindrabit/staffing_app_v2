@@ -1,13 +1,17 @@
 from __future__ import absolute_import, unicode_literals
-from django.forms.models import model_to_dict
+
 from datetime import datetime
-from django.conf import settings 
+
 from celery import shared_task
+from django.conf import settings
+from django.forms.models import model_to_dict
+
+from calendar_app.models import Event
+from users.models import AreaToWorkModel, CustomUser, HospitalListModel
 
 from .models import Shifts
 from .scrape import scrape_own_site
-from calendar_app.models import Event 
-from users.models import CustomUser, HospitalListModel, AreaToWorkModel
+
 
 def autoshiftandeventmatching():
     shifts_needing_fill = Shifts.objects.filter(start_time__gte=datetime.now()).filter(manage=None)
